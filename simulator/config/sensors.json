@@ -1,0 +1,32 @@
+
+{
+  "sensors": [
+    {
+      "sensor_id": "CAP-001",
+      "sensor_type": "Temperature",
+      "unit": "C",
+      "location": "Room A",
+      "min_value": 18,
+      "max_value": 35,
+      "initial_value": 25
+    },
+    {
+      "sensor_id": "CAP-002",
+      "sensor_type": "Humidity",
+      "unit": "%",
+      "location": "Room B",
+      "min_value": 30,
+      "max_value": 80,
+      "initial_value": 55
+    },
+    {
+      "sensor_id": "CAP-003",
+      "sensor_type": "Pressure",
+      "unit": "hPa",
+      "location": "Room C",
+      "min_value": 980,
+      "max_value": 1050,
+      "initial_value": 1013
+    }
+  ]
+}
