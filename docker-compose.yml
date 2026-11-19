@@ -63,6 +63,18 @@ services:
     depends_on:
       - cassandra1
 
+  simulator:
+    build:
+      context: ./simulator
+      dockerfile: Dockerfile
+    container_name: iot_simulator
+    depends_on:
+      - cassandra1
+    networks:
+      - cassandra_net
+    restart: unless-stopped
+
+
 volumes:
   cassandra1_data:
   cassandra2_data:
