@@ -74,6 +74,22 @@ services:
       - cassandra_net
     restart: unless-stopped
 
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: iot_backend
+    ports:
+      - "8000:8000"
+    environment:
+      CASSANDRA_HOST: cassandra1
+      CASSANDRA_PORT: 9042
+      CASSANDRA_KEYSPACE: iot_keyspace
+    depends_on:
+      - cassandra1
+    networks:
+      - cassandra_net
+
 
 volumes:
   cassandra1_data:

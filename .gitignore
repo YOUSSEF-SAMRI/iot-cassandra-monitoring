@@ -6,6 +6,22 @@ __pycache__/
 # C extensions
 *.so
 
+# Environment variables
+.env
+
+# Node.js / React / Vite
+node_modules/
+frontend/node_modules/
+frontend/dist/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
 # Distribution / packaging
 .Python
 build/

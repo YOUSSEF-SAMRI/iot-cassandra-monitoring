@@ -90,6 +90,53 @@ def get_dashboard_statistics(
         "total_measurements": total_measurements,
         "sensors": statistics
     }
+    
+
+@router.get(
+    "/latest-measurements",
+    response_model=list[MeasurementResponse]
+)
+def get_latest_measurements(
+    day: date,
+    request: Request
+):
+    session = request.app.state.cassandra
+
+    sensor_rows = session.execute("""
+        SELECT sensor_id
+        FROM sensors
+    """)
+
+    measurements = []
+
+    for sensor in sensor_rows:
+
+        query = """
+            SELECT sensor_id, day, date, value
+            FROM measurements
+            WHERE sensor_id = %s AND day = %s
+            LIMIT 1
+        """
+
+        row = session.execute(
+            query,
+            (sensor.sensor_id, day)
+        ).one()
+
+        if row is None:
+            continue
+
+        measurements.append({
+            "sensor_id": row.sensor_id,
+            "day": date(1970, 1, 1) + timedelta(
+                days=row.day.days_from_epoch
+            ),
+            "date": row.date,
+            "value": row.value
+        })
+
+    return measurements
+
 
 
 @router.get("/{sensor_id}" , response_model=SensorResponse)

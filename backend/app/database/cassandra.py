@@ -1,5 +1,6 @@
 
 from cassandra.cluster import Cluster
+from app.core.config import settings
 
 
 class CassandraConnection:
@@ -11,13 +12,15 @@ class CassandraConnection:
     def connect(self):
         try:
             self.cluster = Cluster(
-                contact_points=["127.0.0.1"],
-                port=9042
+                contact_points=[settings.CASSANDRA_HOST],
+                port=settings.CASSANDRA_PORT
             )
 
             self.session = self.cluster.connect()
 
-            self.session.set_keyspace("iot_keyspace")
+            self.session.set_keyspace(
+                settings.CASSANDRA_KEYSPACE
+            )
 
             print("Connected to Cassandra successfully!")
 
