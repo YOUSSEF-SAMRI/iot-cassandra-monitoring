@@ -1,0 +1,5 @@
+fastapi
+uvicorn[standard]
+cassandra-driver==3.30.1
+pyasyncore
+python-dotenv
